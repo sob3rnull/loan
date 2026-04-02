@@ -6,13 +6,11 @@ class ShareService {
     required int version,
     required String deviceName,
   }) async {
-    final result = await SharePlus.instance.share(
-      ShareParams(
-        text: 'Money Loan Sync update from $deviceName. Data version $version.',
-        subject: 'Money Loan Sync Update',
-        files: [XFile(filePath)],
-        fileNameOverrides: const ['moneyloan_update.mloan'],
-      ),
+    final result = await Share.shareXFiles(
+      [XFile(filePath)],
+      text: 'Money Loan Sync update from $deviceName. Data version $version.',
+      subject: 'Money Loan Sync Update',
+      fileNameOverrides: const ['moneyloan_update.mloan'],
     );
 
     return result.status == ShareResultStatus.success ||

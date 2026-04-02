@@ -7,9 +7,8 @@ import 'package:path_provider/path_provider.dart';
 import '../core/app_config.dart';
 import '../core/utils/loan_math.dart';
 import '../data/local/database_helper.dart';
+import '../data/models/app_metadata.dart';
 import '../data/models/import_candidate.dart';
-import '../data/models/loan.dart';
-import '../data/models/payment.dart';
 import '../data/models/sync_package.dart';
 import '../data/repositories/app_state_repository.dart';
 import '../data/repositories/borrower_repository.dart';
@@ -140,7 +139,7 @@ class ExportImportService {
       return null;
     }
 
-    final backupDirectory = await backupDirectory();
+    final backupDir = await backupDirectory();
     final timestamp = DateTime.now()
         .toIso8601String()
         .replaceAll(':', '')
@@ -148,7 +147,7 @@ class ExportImportService {
         .replaceAll('.', '');
     final backupFile = File(
       p.join(
-        backupDirectory.path,
+        backupDir.path,
         'moneyloan_backup_v${metadata.currentVersion}_$timestamp.mloan',
       ),
     );
@@ -213,4 +212,3 @@ class ExportImportService {
     return directory;
   }
 }
-

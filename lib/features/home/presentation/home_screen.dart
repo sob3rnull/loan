@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../app/app_router.dart';
 import '../../../app/state/app_state_controller.dart';
 import '../../../core/utils/app_formatters.dart';
+import '../../../data/models/app_metadata.dart';
 import '../../../widgets/action_button.dart';
 import '../../../widgets/app_scaffold.dart';
 import '../../../widgets/stat_card.dart';

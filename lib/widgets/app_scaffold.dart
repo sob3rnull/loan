@@ -19,6 +19,8 @@ class AppScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bottomBarWidget = bottomBar;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -64,11 +66,11 @@ class AppScaffold extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: bottomBar == null
+      bottomNavigationBar: bottomBarWidget == null
           ? null
           : SafeArea(
               minimum: const EdgeInsets.all(16),
-              child: bottomBar,
+              child: bottomBarWidget,
             ),
     );
   }

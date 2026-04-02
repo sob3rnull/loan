@@ -116,7 +116,7 @@ class _LoanFormScreenState extends State<LoanFormScreen> {
                 ),
                 const SizedBox(height: 14),
                 DropdownButtonFormField<String>(
-                  value: _interestType,
+                  initialValue: _interestType,
                   decoration: const InputDecoration(labelText: 'Interest type'),
                   items: const [
                     DropdownMenuItem(
@@ -244,4 +244,3 @@ class _DateField extends StatelessWidget {
     );
   }
 }
-
