@@ -37,15 +37,21 @@ class SyncPackage {
     final borrowers = json['borrowers'];
     final loans = json['loans'];
     final payments = json['payments'];
+    final appVersion = json['appVersion'];
+    final dataVersion = json['dataVersion'];
+    final exportedAt = json['exportedAt'];
 
+    if (appVersion is! int || dataVersion is! int || exportedAt is! String) {
+      throw const FormatException('Missing package metadata.');
+    }
     if (borrowers is! List || loans is! List || payments is! List) {
       throw const FormatException('Missing list data.');
     }
 
     return SyncPackage(
-      appVersion: json['appVersion'] as int,
-      dataVersion: json['dataVersion'] as int,
-      exportedAt: json['exportedAt'] as String,
+      appVersion: appVersion,
+      dataVersion: dataVersion,
+      exportedAt: exportedAt,
       exportedBy: json['exportedBy'] as String? ?? 'Unknown Phone',
       borrowers: borrowers
           .map((item) => Borrower.fromJson(item as Map<String, dynamic>))

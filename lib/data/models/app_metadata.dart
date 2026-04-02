@@ -79,5 +79,10 @@ class AppMetadata {
       deviceName: 'This Phone',
     );
   }
-}
 
+  bool get hasPendingImport =>
+      pendingImportPath != null && pendingImportPath!.isNotEmpty;
+
+  bool get isEditLocked =>
+      syncStatus != SyncStatus.ready || hasPendingImport;
+}

@@ -48,6 +48,17 @@ class LoanRepository {
     return rows.map(Loan.fromMap).toList();
   }
 
+  Future<List<Loan>> getOpenLoans() async {
+    final db = await _databaseHelper.database;
+    final rows = await db.query(
+      'loans',
+      where: 'remaining_amount > 0',
+      orderBy:
+          "CASE WHEN due_date IS NULL OR due_date = '' THEN 1 ELSE 0 END, due_date ASC, created_at DESC",
+    );
+    return rows.map(Loan.fromMap).toList();
+  }
+
   Future<void> recalculateLoanSnapshotOn(
     DatabaseExecutor executor, {
     String? loanId,
@@ -94,6 +105,28 @@ class LoanRepository {
     }
   }
 
+  Future<void> deleteLoansByBorrowerOn(
+    DatabaseExecutor executor,
+    String borrowerId,
+  ) async {
+    await executor.delete(
+      'loans',
+      where: 'borrower_id = ?',
+      whereArgs: [borrowerId],
+    );
+  }
+
+  Future<void> deleteLoanOn(
+    DatabaseExecutor executor,
+    String loanId,
+  ) async {
+    await executor.delete(
+      'loans',
+      where: 'id = ?',
+      whereArgs: [loanId],
+    );
+  }
+
   String deriveStatus({
     required String? dueDate,
     required double remainingAmount,
@@ -114,4 +147,3 @@ class LoanRepository {
     return 'active';
   }
 }
-

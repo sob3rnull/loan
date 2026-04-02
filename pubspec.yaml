@@ -1,5 +1,5 @@
-name: money_loan
-description: Offline loan tracking app with manual two-phone sync.
+name: money_loan_sync
+description: Offline-first Android loan tracking app with manual .mloan sync.
 publish_to: none
 version: 1.0.0+1
 
@@ -27,4 +27,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-

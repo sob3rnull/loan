@@ -41,5 +41,15 @@ class BorrowerRepository {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
-}
 
+  Future<void> deleteBorrowerOn(
+    DatabaseExecutor executor,
+    String borrowerId,
+  ) async {
+    await executor.delete(
+      'borrowers',
+      where: 'id = ?',
+      whereArgs: [borrowerId],
+    );
+  }
+}

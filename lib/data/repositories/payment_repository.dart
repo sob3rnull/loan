@@ -34,5 +34,26 @@ class PaymentRepository {
   ) async {
     await executor.insert('payments', payment.toMap());
   }
-}
 
+  Future<void> deletePaymentsForLoanOn(
+    DatabaseExecutor executor,
+    String loanId,
+  ) async {
+    await executor.delete(
+      'payments',
+      where: 'loan_id = ?',
+      whereArgs: [loanId],
+    );
+  }
+
+  Future<void> deletePaymentsForBorrowerOn(
+    DatabaseExecutor executor,
+    String borrowerId,
+  ) async {
+    await executor.delete(
+      'payments',
+      where: 'loan_id IN (SELECT id FROM loans WHERE borrower_id = ?)',
+      whereArgs: [borrowerId],
+    );
+  }
+}
